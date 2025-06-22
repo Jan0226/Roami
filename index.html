@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roami - Small steps for your feet, a gaint leap towards change</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen active">
+        <div class="loading-content">
+            <div class="logo">
+                <h1>Roami</h1>
+                <p>Small steps for your feet, a gaint leap towards change</p>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container">
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-screen="route-planner">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-text">Routes</span>
+            </button>
+            <button class="nav-btn" data-screen="walking">
+                <span class="nav-icon">🚶</span>
+                <span class="nav-text">Walking</span>
+            </button>
+            <button class="nav-btn" data-screen="journal">
+                <span class="nav-icon">📝</span>
+                <span class="nav-text">Journal</span>
+            </button>
+            <button class="nav-btn" data-screen="leaderboard">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-text">Leaderboard</span>
+            </button>
+        </nav>
+
+        <!-- Route Planner Screen -->
+        <div id="route-planner" class="screen active">
+            <div class="header">
+                <h2>Plan Your Route</h2>
+                <p>Discover beautiful walking paths</p>
+            </div>
+            
+            <div id="map" class="map-container"></div>
+            
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="start-location">Start Location</label>
+                    <input type="text" id="start-location" class="form-input" placeholder="Enter start location">
+                </div>
+
+                <div class="form-group">
+                    <label for="end-location">End Location</label>
+                    <input type="text" id="end-location" class="form-input" placeholder="Enter end location">
+                </div>
+
+                <div class="form-group">
+                    <label for="scenery">Preferred Scenery</label>
+                    <select id="scenery" class="form-input">
+                        <option value="">Select scenery type</option>
+                        <option value="forest">Forest</option>
+                        <option value="urban">Urban</option>
+                        <option value="neighborhood">Neighborhood</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration">Time/Distance</label>
+                    <select id="duration" class="form-input">
+                        <option value="">Select duration</option>
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="steps">Target Steps</label>
+                    <input type="number" id="steps" class="form-input" placeholder="e.g., 5000" min="1000" max="20000">
+                </div>
+                
+                <button id="find-routes" class="btn-primary">Find Routes</button>
+            </div>
+            
+            <div id="routes-results" class="routes-container" style="display: none;">
+                <h3>Recommended Routes</h3>
+                <div id="routes-list"></div>
+            </div>
+        </div>
+
+        <!-- Walking Screen -->
+        <div id="walking" class="screen">
+            <div class="header">
+                <h2>Walking Session</h2>
+                <p>Stay motivated and capture ideas</p>
+            </div>
+            
+            <div class="walking-content">
+                <div class="motivation-card">
+                    <h3>Today's Motivation</h3>
+                    <p id="motivation-quote">"Every step you take is a step towards a healthier you."</p>
+                    <button id="new-quote" class="btn-secondary">New Quote</button>
+                </div>
+                
+                <div class="idea-capture">
+                    <h3>Capture Your Ideas</h3>
+                    <textarea id="idea-input" class="idea-textarea" placeholder="Write down any ideas that come to mind while walking..."></textarea>
+                    <button id="save-idea" class="btn-primary">Save Idea</button>
+                </div>
+                
+                <div class="walking-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="current-steps">0</span>
+                        <span class="stat-label">Steps</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="current-distance">0.0</span>
+                        <span class="stat-label">km</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="current-time">00:00</span>
+                        <span class="stat-label">Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Screen -->
+        <div id="journal" class="screen">
+            <div class="header">
+                <h2>Your Journal</h2>
+                <p>All your walking ideas in one place</p>
+            </div>
+            
+            <div class="journal-content">
+                <div class="journal-actions">
+                    <button id="new-journal-entry" class="btn-primary">New Entry</button>
+                    <button id="filter-journal" class="btn-secondary">Subsribe to more</button>
+                </div>
+                
+                <div id="journal-entries" class="entries-container">
+                    <!-- Journal entries will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboard" class="screen">
+            <div class="header">
+                <h2>Regional Leaderboard</h2>
+                <p>Top walkers in your area</p>
+            </div>
+            
+            <div class="leaderboard-content">
+                <div class="region-selector">
+                    <select id="region-select" class="form-input">
+                        <option value="current">Current Region</option>
+                        <option value="city">City</option>
+                        <option value="state">State</option>
+                        <option value="country">Country</option>
+                    </select>
+                </div>
+                
+                <div id="leaderboard-list" class="leaderboard-list">
+                    <!-- Leaderboard entries will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=e6587c6fa32138a69c9982d758ebaf30&libraries=places&callback=initMap" async defer></script>
+
+    <!-- Journal Entry Modal -->
+    <div id="journal-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>New Journal Entry</h3>
+        <label for="journal-title">Title</label>
+        <input type="text" id="journal-title" class="form-input" maxlength="100" placeholder="Entry title">
+        <label for="journal-content">Content</label>
+        <textarea id="journal-content" class="form-input" rows="5" placeholder="Write your journal entry..."></textarea>
+        <div class="modal-actions">
+          <button id="save-journal-btn" class="btn-primary">Save Journal</button>
+          <button id="cancel-journal-btn" class="btn-secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
